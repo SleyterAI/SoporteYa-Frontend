@@ -1,1 +1,21 @@
-<p>topbar works!</p>
+<header class="topbar">
+  <div class="breadcrumbs">
+    @for (crumb of breadcrumbs(); track $index; let last = $last) {
+      <span [class.active]="last">{{ crumb }}</span>
+      @if (!last) {
+        <span class="separator">/</span>
+      }
+    }
+  </div>
+
+  <div class="actions">
+    <button class="icon-btn">
+      <span class="material-icons">search</span>
+    </button>
+    <button class="icon-btn">
+      <span class="material-icons">notifications</span>
+    </button>
+    <!-- Avatar pequeño para el topbar -->
+    <div class="topbar-avatar">AT</div>
+  </div>
+</header>

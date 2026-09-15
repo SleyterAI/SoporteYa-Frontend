@@ -1,1 +1,63 @@
-<p>sidebar works!</p>
+<aside class="sidebar">
+  <!-- Logo y Brand -->
+  <div class="brand">
+    <div class="brand-icon">
+      <span class="material-symbols-outlined">support_agent</span>
+    </div>
+    <span class="brand-name">SoporteYA</span>
+  </div>
+
+  <!-- Selector de Espacio -->
+  <div class="space-selector">
+    <div class="space-icon">OP</div>
+    <div class="space-info">
+      <span class="space-title">Operaciones</span>
+      <span class="space-subtitle">Equipo de soporte</span>
+    </div>
+    <span class="material-symbols-outlined expand-icon">unfold_more</span>
+  </div>
+
+  <!-- Navegación -->
+  <nav class="nav-menu">
+    <div class="nav-section">
+      <span class="section-title">GESTIÓN</span>
+      <ul>
+        @for (item of gestionMenu(); track item.id) {
+          <li>
+            <a [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+              <span class="material-symbols-outlined">{{ item.icon }}</span>
+              {{ item.label }}
+              @if (item.id === 'todos') {
+                <span class="badge">4</span>
+              }
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="nav-section">
+      <span class="section-title">RECURSOS Y SISTEMA</span>
+      <ul>
+        @for (item of recursosMenu(); track item.id) {
+          <li>
+            <a [routerLink]="item.route" routerLinkActive="active" class="nav-item">
+              <span class="material-symbols-outlined">{{ item.icon }}</span>
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Perfil de Usuario -->
+  <div class="user-profile">
+    <div class="avatar">{{ user().avatarInitials }}</div>
+    <div class="user-info">
+      <span class="user-name">{{ user().name }}</span>
+      <span class="user-role">{{ user().role }}</span>
+    </div>
+    <span class="material-symbols-outlined more-icon">more_vert</span>
+  </div>
+</aside>

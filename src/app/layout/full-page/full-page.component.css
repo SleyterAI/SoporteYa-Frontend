@@ -1,0 +1,29 @@
+/* Contenedor principal */
+.layout-wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;    /* Evita el scroll global de la página */
+}
+
+/* Sidebar */
+.sidebar-column {
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+/* (Topbar + Main) */
+.content-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #f8fafc;
+}
+
+/* MAIN */
+app-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+}
