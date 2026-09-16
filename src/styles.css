@@ -4,3 +4,8 @@ html, body {
   padding: 0;
   height: 100%;
 }
+
+body {
+  font-family: monospace;
+  font-size: 15px;
+}

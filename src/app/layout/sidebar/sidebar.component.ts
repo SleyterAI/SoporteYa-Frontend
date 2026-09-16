@@ -24,7 +24,7 @@ export class SidebarComponent {
 
   // Agrupación de menús basada en el diseño
   gestionMenu = signal<MenuItem[]>([
-    { id: 'tablero', label: 'Tablero', icon: 'view_kanban', route: '/ticket-board-page' },
+    { id: 'tablero', label: 'Tablero', icon: 'view_kanban', route: 'ticket-board-page' },
     { id: 'todos', label: 'Todos los tickets', icon: 'inbox', route: '/all-ticket-page' },
     { id: 'mis-tickets', label: 'Mis tickets', icon: 'person', route: '/my-ticket-page' }
   ]);

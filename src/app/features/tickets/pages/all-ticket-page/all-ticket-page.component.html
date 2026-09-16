@@ -1,1 +1,116 @@
-<p>all-ticket-page works!</p>
+<div class="page-container">
+  <!-- Cabecera -->
+  <div class="page-header">
+    <div class="header-text">
+      <h2>Todos los tickets</h2>
+      <p>Consulta, filtra y administra el inventario total de incidentes del sistema.</p>
+    </div>
+    <button class="btn-primary" routerLink="/ticket-form">
+      <span class="material-symbols-outlined">add</span>
+      Nuevo ticket
+    </button>
+  </div>
+
+  <!-- Barra de Herramientas -->
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Buscar tickets...">
+    </div>
+    <div class="filters">
+      <select class="filter-select">
+        <option [disabled]>Todas</option>
+        <option>Abierto</option>
+        <option>En progreso</option>
+        <option>Resuelto</option>
+        <option>Cerrado</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Contenedor de la Tabla -->
+  <div class="table-container">
+
+    <!-- Estado: Cargando -->
+    @if (ticketResource.isLoading()) {
+      <div class="state-message">Cargando tickets...</div>
+    }
+
+    <!-- Estado: Error -->
+    @else if (ticketResource.error()) {
+      <div class="state-message error">Hubo un error al cargar los tickets.</div>
+    }
+
+    <!-- Estado: Éxito (Datos listos) -->
+    @else {
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>TICKET</th>
+            <th>SOLICITANTE</th>
+            <th>ESTADO</th>
+            <th>PRIORIDAD</th>
+            <th>FECHA</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Iteramos sobre el valor real del resource -->
+          @for (ticket of ticketResource.value(); track ticket.id) {
+            <tr>
+
+              <!-- Columna 1: ID y Título -->
+              <td>
+                <div class="ticket-info">
+                  <span class="ticket-id">#{{ ticket.id }}</span>
+                  <span class="ticket-title">{{ ticket.titulo }}</span>
+                </div>
+              </td>
+
+              <!-- Columna 2: Usuario (usando 'descripcion' como en tu card anterior) -->
+              <td>
+                <div class="user-info">
+                  <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
+                  <span class="user-name">{{ ticket.descripcion || 'Sin asignar' }}</span>
+                </div>
+              </td>
+
+              <!-- Columna 3: Estado -->
+              <td>
+                <div class="status-badge">
+                  <!-- El color del punto cambia según el texto del estado -->
+                  <span class="status-dot" [ngClass]="(ticket.estado || '').toLowerCase()"></span>
+                  {{ ticket.estado || 'Nuevo' }}
+                </div>
+              </td>
+
+              <!-- Columna 4: Prioridad -->
+              <td>
+                <div class="priority-badge">
+                  <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
+                  {{ ticket.prioridad || 'Media' }}
+                </div>
+              </td>
+
+              <!-- Columna 5: Fecha -->
+              <td class="date-cell">{{ ticket.fechaCreacion | timeAgo}}</td>
+
+              <!-- Columna 6: Acciones -->
+              <td class="actions-cell">
+                <button class="btn-icon-text">
+                  <span class="material-symbols-outlined">more_horiz</span>
+                </button>
+              </td>
+
+            </tr>
+          } @empty {
+            <!-- Se muestra si el array de tickets viene vacío -->
+            <tr>
+              <td colspan="6" class="state-message">No hay tickets registrados.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>

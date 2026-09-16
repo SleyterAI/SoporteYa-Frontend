@@ -1,1 +1,53 @@
-<p>knowledge-base-page works!</p>
+<div class="page-container">
+  <!-- Cabecera -->
+  <div class="page-header">
+    <div class="header-text">
+      <h2>Base de conocimiento</h2>
+      <p>Recursos manuales y procedimientos para resolver dudas y escalar con agilidad.</p>
+    </div>
+    <button class="btn-primary" routerLink="/ticket-form">
+      <span class="material-symbols-outlined">add</span>
+      Nuevo ticket
+    </button>
+  </div>
+
+  <!-- Buscador Principal -->
+  <div class="search-section">
+    <div class="search-box-large">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Buscar artículos, guías o procedimientos...">
+    </div>
+  </div>
+
+  <!-- Grid de Artículos -->
+  <div class="articles-grid">
+    @for (article of articles; track article.id) {
+      <div class="article-card">
+
+        <div class="article-icon">
+          <span class="material-symbols-outlined">{{ article.icon }}</span>
+        </div>
+
+        <span class="category-label">{{ article.category }}</span>
+
+        <h3 class="article-title">{{ article.title }}</h3>
+
+        <p class="article-desc">{{ article.description }}</p>
+
+        <div class="article-footer">
+          <span class="read-time">
+            <span class="material-symbols-outlined icon-small">menu_book</span>
+            {{ article.readTime }}
+          </span>
+
+          <!-- Enlace externo: target="_blank" asegura que abre en otra pestaña -->
+          <!-- rel="noopener noreferrer" es vital para la seguridad al abrir links externos -->
+          <a [href]="article.url" target="_blank" rel="noopener noreferrer" class="read-link">
+            Leer guía
+            <span class="material-symbols-outlined icon-small">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+</div>

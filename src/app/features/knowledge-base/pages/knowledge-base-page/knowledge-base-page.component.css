@@ -1,0 +1,165 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; /* Un poco más de espacio para la base de conocimiento */
+  width: 100%;
+}
+
+/* --- Cabecera (Reutilizada) --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.header-text h2 { margin: 0; font-size: 1.5rem; color: #0f172a; font-weight: 600; }
+.header-text p { margin: 4px 0 0; font-size: 0.875rem; color: #64748b; }
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* --- Buscador Grande --- */
+.search-section {
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-box-large {
+  position: relative;
+  width: 100%;
+}
+
+.search-box-large .search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 24px;
+}
+
+.search-box-large input {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #0f172a;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.search-box-large input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* --- Grid de Tarjetas --- */
+.articles-grid {
+  display: grid;
+  /* Crea columnas responsivas que no sean menores a 350px */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+/* --- Tarjeta de Artículo --- */
+.article-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.article-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
+}
+
+.article-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #eff6ff;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.category-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.article-title {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.article-desc {
+  margin: 0 0 24px 0;
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.5;
+  flex: 1; /* Empuja el footer hacia abajo si el texto es corto */
+}
+
+/* --- Footer de la Tarjeta --- */
+.article-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.read-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.icon-small {
+  font-size: 16px;
+}
+
+/* --- Enlace Externo --- */
+.read-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #3b82f6;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.read-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}

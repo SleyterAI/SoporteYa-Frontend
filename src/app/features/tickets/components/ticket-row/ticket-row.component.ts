@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-ticket-row',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './ticket-row.component.css',
 })
 export class TicketRowComponent {
-
+  title = input.required<string>();
+  value = input.required<string>();
+  icon = input.required<string>();
 }

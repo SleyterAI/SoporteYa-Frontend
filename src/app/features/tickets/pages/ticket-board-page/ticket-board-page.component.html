@@ -1,1 +1,48 @@
-<p>ticket-board-page works!</p>
+<div class="ticket-board-page">
+
+  <div class="page-header">
+    <div class="header-text">
+      <h2>Tablero de tickets</h2>
+      <p>Visualiza el flujo de trabajo organizado en columnas de estado.</p>
+    </div>
+
+    <button class="btn-primary" routerLink="/ticket-form">
+      <span class="material-symbols-outlined">add</span>
+      Nuevo ticket
+    </button>
+  </div>
+
+  <!-- Fila de metricas -->
+  <div class="metrics-row">
+    <app-ticket-row
+      title="Estado"
+      value="cadena"
+      icon="pending">
+    </app-ticket-row>
+    <app-ticket-row
+      title="Estado"
+      value="cadena"
+      icon="pending">
+    </app-ticket-row>
+    <app-ticket-row
+      title="Estado"
+      value="cadena"
+      icon="pending">
+    </app-ticket-row>
+
+  </div>
+
+  @if (ticketResource.isLoading()) {
+    <div class="loading-state">Cargando tickets...</div>
+  } @else if (ticketResource.error()) {
+    <div class="error-state">Error: {{ ticketResource.error() | json }}</div>
+  } @else {
+
+    <div class="tickets-grid">
+      @for (ticket of ticketResource.value(); track ticket.id) {
+        <app-ticket-card [ticket]="ticket" />
+      }
+    </div>
+  }
+</div>
+

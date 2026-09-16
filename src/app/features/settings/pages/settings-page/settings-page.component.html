@@ -1,1 +1,75 @@
-<p>settings-page works!</p>
+<div class="page-container">
+  <!-- Cabecera -->
+  <div class="page-header">
+    <div class="header-text">
+      <h2>Configuración</h2>
+      <p>Personaliza el espacio de soporte y sus reglas de atención.</p>
+    </div>
+  </div>
+
+  <!-- Layout dividido: Sidebar de Ajustes + Contenido -->
+  <div class="settings-layout">
+
+    <!-- Menú lateral izquierdo -->
+    <aside class="settings-nav">
+      <ul>
+        @for (tab of tabs; track tab.id) {
+          <li>
+            <button
+              class="nav-item"
+              [ngClass]="{ 'active': activeTab() === tab.id, 'disabled': tab.disabled }"
+              (click)="setTab(tab.id, tab.disabled)">
+              <span class="material-symbols-outlined">{{ tab.icon }}</span>
+              {{ tab.label }}
+            </button>
+          </li>
+        }
+      </ul>
+    </aside>
+
+    <!-- Área de contenido principal -->
+    <main class="settings-content">
+
+      <!-- Contenido de la pestaña General -->
+      @if (activeTab() === 'general') {
+        <div class="settings-card">
+          <div class="card-header">
+            <h3>Información del espacio</h3>
+            <p>Estos datos se muestran a los miembros del espacio en el centro de soporte.</p>
+          </div>
+
+          <form [formGroup]="generalForm" (ngSubmit)="onSubmit()" class="settings-form">
+
+            <div class="form-group">
+              <label for="nombre">Nombre del espacio</label>
+              <input
+                id="nombre"
+                type="text"
+                formControlName="nombre"
+                [class.is-invalid]="generalForm.controls.nombre.touched && generalForm.controls.nombre.invalid"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="descripcion">Descripción</label>
+              <textarea
+                id="descripcion"
+                formControlName="descripcion"
+                rows="4"
+                [class.is-invalid]="generalForm.controls.descripcion.touched && generalForm.controls.descripcion.invalid"
+              ></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
+              <button type="submit" class="btn-primary" [disabled]="generalForm.invalid">
+                Guardar cambios
+              </button>
+            </div>
+          </form>
+        </div>
+      }
+
+    </main>
+  </div>
+</div>

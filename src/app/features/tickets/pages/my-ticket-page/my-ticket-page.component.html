@@ -1,1 +1,101 @@
-<p>my-ticket-page works!</p>
+<div class="page-container">
+  <!-- Cabecera adaptada para "Mis Tickets" -->
+  <div class="page-header">
+    <div class="header-text">
+      <h2>Mis tickets</h2>
+      <p>Solicitudes asignadas a tu fila directa y pendientes de atención.</p>
+    </div>
+    <button class="btn-primary" routerLink="/ticket-form">
+      <span class="material-symbols-outlined">add</span>
+      Nuevo ticket
+    </button>
+  </div>
+
+  <!-- Barra de Herramientas -->
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input type="text" placeholder="Buscar mis tickets...">
+    </div>
+    <div class="filters">
+      <select class="filter-select">
+        <option>Todos mis tickets</option>
+        <option>Abiertos</option>
+        <option>En progreso</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Contenedor de la Tabla -->
+  <div class="table-container">
+
+    @if (ticketResource.isLoading()) {
+      <div class="state-message">Cargando tus tickets...</div>
+    }
+
+    @else if (ticketResource.error()) {
+      <div class="state-message error">Hubo un error al cargar tu información.</div>
+    }
+
+    @else {
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>TICKET</th>
+            <th>SOLICITANTE</th>
+            <th>ESTADO</th>
+            <th>PRIORIDAD</th>
+            <th>ÚLTIMA ACTUALIZACIÓN</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (ticket of ticketResource.value(); track ticket.id) {
+            <tr>
+              <td>
+                <div class="ticket-info">
+                  <span class="ticket-id">#{{ ticket.id }}</span>
+                  <span class="ticket-title">{{ ticket.titulo }}</span>
+                </div>
+              </td>
+
+              <td>
+                <div class="user-info">
+                  <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
+                  <span class="user-name">{{ ticket.descripcion || 'Sin asignar' }}</span>
+                </div>
+              </td>
+
+              <td>
+                <div class="status-badge">
+                  <span class="status-dot" [ngClass]="(ticket.estado || '').toLowerCase()"></span>
+                  {{ ticket.estado || 'Nuevo' }}
+                </div>
+              </td>
+
+              <td>
+                <div class="priority-badge">
+                  <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
+                  {{ ticket.prioridad || 'Media' }}
+                </div>
+              </td>
+
+              <!-- Aquí usamos el Pipe que creamos -->
+              <td class="date-cell">{{ ticket.fechaCreacion | timeAgo }}</td>
+
+              <td class="actions-cell">
+                <button class="btn-icon-text">
+                  <span class="material-symbols-outlined">more_horiz</span>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="state-message">¡Excelente trabajo! No tienes tickets asignados en este momento.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>

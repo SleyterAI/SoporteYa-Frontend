@@ -1,0 +1,173 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* --- Cabecera --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-text h2 { margin: 0; font-size: 1.5rem; color: #0f172a; font-weight: 600; }
+.header-text p { margin: 4px 0 0; font-size: 0.875rem; color: #64748b; }
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* --- Barra de Herramientas --- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 16px 10px 40px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-select {
+  padding: 10px 32px 10px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 0.875rem;
+}
+
+.btn-icon-outline {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #475569;
+}
+
+/* --- Tabla de Tickets --- */
+.table-container {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden; /* Para que los bordes redondeados se mantengan */
+}
+
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tickets-table th {
+  background-color: #f8fafc;
+  padding: 16px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tickets-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.tickets-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Elementos internos de la tabla --- */
+.ticket-info { display: flex; flex-direction: column; gap: 4px; }
+.ticket-id { font-size: 0.75rem; color: #94a3b8; }
+.ticket-title { font-size: 0.875rem; font-weight: 500; color: #1e293b; }
+
+.user-info { display: flex; align-items: center; gap: 8px; }
+.avatar-fallback {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 600;
+}
+.user-name { font-size: 0.875rem; color: #475569; }
+
+.status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; color: #475569; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.status-dot.blue { background-color: #3b82f6; } /* Ajusta según el estado */
+
+.priority-badge { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; color: #475569; }
+.priority-arrow.alta { color: #ef4444; font-weight: bold; } /* Ajusta según prioridad */
+
+.date-cell { font-size: 0.875rem; color: #64748b; }
+
+.actions-cell { text-align: right; }
+.btn-icon-text { background: transparent; border: none; color: #94a3b8; cursor: pointer; }
+
+/* Mensajes de carga, error y tabla vacía */
+.state-message {
+  padding: 32px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.state-message.error {
+  color: #ef4444;
+}
+
+/* Colores dinámicos para los puntos de Estado (Status) */
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #cbd5e1; }
+.status-dot.nuevo { background-color: #3b82f6; } /* Azul */
+.status-dot.progreso { background-color: #f59e0b; } /* Amarillo */
+.status-dot.resuelto { background-color: #10b981; } /* Verde */
+
+/* Colores dinámicos para la Prioridad */
+.priority-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #cbd5e1; }
+.priority-dot.baja { background-color: #10b981; }
+.priority-dot.media { background-color: #f59e0b; }
+.priority-dot.alta { background-color: #ef4444; }

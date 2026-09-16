@@ -7,9 +7,13 @@
 
   <!-- Columna Derecha -->
   <div class="content-column">
+    <!-- Topbar -->
     <app-topbar></app-topbar>
-    <app-main></app-main>
-    <!-- Nota: Si usas rutas, <app-main> puede ser reemplazado por <router-outlet> -->
+
+    <!-- CONTENEDOR DE SCROLL -->
+    <div class="main-scroll-area">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 
 </div>
