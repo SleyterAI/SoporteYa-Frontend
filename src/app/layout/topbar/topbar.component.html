@@ -1,21 +1,60 @@
 <header class="topbar">
   <div class="breadcrumbs">
     @for (crumb of breadcrumbs(); track $index; let last = $last) {
-      <span [class.active]="last">{{ crumb }}</span>
-      @if (!last) {
-        <span class="separator">/</span>
-      }
+    <span [class.active]="last">{{ crumb }}</span>
+    @if (!last) {
+    <span class="separator">/</span>
+    }
     }
   </div>
 
+  <!-- ... (tu código del breadcrumbs) ... -->
+
   <div class="actions">
     <button class="icon-btn">
-      <span class="material-icons">search</span>
+      <span class="material-symbols-outlined">search</span>
     </button>
     <button class="icon-btn">
-      <span class="material-icons">notifications</span>
+      <span class="material-symbols-outlined">notifications</span>
     </button>
-    <!-- Avatar pequeño para el topbar -->
-    <div class="topbar-avatar">AT</div>
+
+    <!-- Contenedor del Avatar y su Menú -->
+    <div class="avatar-container">
+
+      <!-- Avatar que actúa como botón -->
+      <div class="topbar-avatar" (click)="toggleUserMenu()">
+        {{ email | initials }}
+      </div>
+
+      <!-- Menú Desplegable -->
+      @if (isUserMenuOpen()) {
+        <div class="topbar-dropdown">
+
+          <div class="dropdown-header">
+            <span class="user-name">Ana Torres</span>
+            <span class="user-email">{{ email }}</span>
+          </div>
+
+          <div class="dropdown-divider"></div>
+
+          <button class="dropdown-item">
+            <span class="material-symbols-outlined">person</span>
+            Mi perfil
+          </button>
+
+          <button class="dropdown-item">
+            <span class="material-symbols-outlined">settings</span>
+            Configuración
+          </button>
+
+          <div class="dropdown-divider"></div>
+
+          <button class="dropdown-item logout-btn" (click)="logout()">
+            <span class="material-symbols-outlined">logout</span>
+            Cerrar sesión
+          </button>
+        </div>
+      }
+    </div>
   </div>
 </header>

@@ -51,13 +51,37 @@
     </div>
   </nav>
 
-  <!-- Perfil de Usuario -->
-  <div class="user-profile">
-    <div class="avatar">{{ user().avatarInitials }}</div>
-    <div class="user-info">
-      <span class="user-name">{{ user().name }}</span>
-      <span class="user-role">{{ user().role }}</span>
+  <!-- Usuario -->
+  <div class="user-profile-container">
+
+    @if (isUserMenuOpen()) {
+      <div class="user-menu-dropdown">
+        <button class="menu-item">
+          <span class="material-symbols-outlined">person</span>
+          Mi perfil
+        </button>
+
+        <div class="menu-divider"></div>
+
+        <button class="menu-item logout-btn" (click)="logout()">
+          <span class="material-symbols-outlined">logout</span>
+          Cerrar sesión
+        </button>
+      </div>
+    }
+
+    <!-- perfil -->
+    <div class="user-profile" (click)="toggleUserMenu()">
+      <div class="avatar">{{ user().avatarInitials | initials }}</div>
+      <div class="user-info">
+        <span class="user-name">{{ user().name }}</span>
+        <span class="user-role">{{ user().role }}</span>
+      </div>
+      <span class="material-symbols-outlined more-icon">
+        <!-- icono-->
+        {{ isUserMenuOpen() ? 'close' : 'more_vert' }}
+      </span>
     </div>
-    <span class="material-symbols-outlined more-icon">more_vert</span>
+
   </div>
 </aside>

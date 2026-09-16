@@ -1,10 +1,11 @@
 import { NgClass } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { TicketResponse } from '../../models/ticket.interface';
+import { TimeAgoPipe } from '../../../../core/pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-ticket-card',
-  imports: [NgClass],
+  imports: [NgClass, TimeAgoPipe],
   templateUrl: './ticket-card.component.html',
   styleUrl: './ticket-card.component.css',
 })

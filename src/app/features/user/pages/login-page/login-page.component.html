@@ -1,0 +1,68 @@
+<div class="login-wrapper">
+
+  <div class="login-card">
+
+    <!-- Cabecera de Marca -->
+    <div class="brand-header">
+      <div class="brand-icon">
+        <span class="material-symbols-outlined">support_agent</span>
+      </div>
+      <h2>SoporteYA</h2>
+      <p>Inicia sesión para gestionar tu espacio de trabajo.</p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+
+      <!-- Correo Electrónico -->
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="ejemplo@empresa.com"
+          [class.is-invalid]="loginForm.controls.email.touched && loginForm.controls.email.invalid"
+        >
+        @if (loginForm.controls.email.touched && loginForm.controls.email.hasError('email')) {
+          <span class="error-text">Ingresa un correo válido.</span>
+        }
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group">
+        <div class="label-row">
+          <label for="password">Contraseña</label>
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <div class="password-input-wrapper">
+          <input
+            id="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="••••••••"
+            [class.is-invalid]="loginForm.controls.password.touched && loginForm.controls.password.invalid"
+          >
+          <button type="button" class="toggle-pwd-btn" (click)="togglePassword()">
+            <span class="material-symbols-outlined">
+              {{ showPassword() ? 'visibility_off' : 'visibility' }}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón de Ingreso -->
+      <button type="submit" class="btn-primary" [disabled]="loginForm.invalid">
+        Ingresar al sistema
+      </button>
+
+    </form>
+
+    <!-- Footer de la tarjeta -->
+    <div class="login-footer">
+      ¿No tienes una cuenta? <a href="#">Contacta a tu administrador</a>
+    </div>
+
+  </div>
+</div>

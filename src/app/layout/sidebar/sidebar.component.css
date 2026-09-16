@@ -181,3 +181,88 @@ ul { list-style: none; padding: 0; margin: 0; }
   color: #94a3b8;
   font-size: 1.25rem;
 }
+
+/* Contenedor relativo para posicionar el menú emergente */
+.user-profile-container {
+  position: relative;
+  margin-top: auto; /* Asegura que el perfil siempre esté abajo del todo */
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.user-profile:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Ventanita / Menú Flotante --- */
+.user-menu-dropdown {
+  position: absolute;
+  bottom: 100%; /* Lo posiciona exactamente encima del user-profile */
+  left: 16px;
+  right: 16px;
+  margin-bottom: 8px; /* Separación del perfil */
+  background-color: #1e293b; /* Un fondo un poco más claro que el sidebar */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3); /* Sombra hacia arriba */
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  z-index: 100;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* Animación sutil de aparición */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.menu-item .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+.menu-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
+}
+
+/* Estilo especial (rojo) para el botón de cerrar sesión */
+.logout-btn {
+  color: #f87171;
+}
+
+.logout-btn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+}

@@ -1,16 +1,23 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthService } from '../../features/user/services/auth.service';
+import { InitialsPipe } from '../../core/pipes/initials.pipe';
 
 @Component({
   selector: 'app-topbar',
-  imports: [],
+  imports: [InitialsPipe],
   templateUrl: './topbar.component.html',
   styleUrl: './topbar.component.css',
 })
 export class TopbarComponent {
   private router = inject(Router);
+  private readonly authService = inject(AuthService);
+
+  email = this.authService.getEmail();
+
+  isUserMenuOpen = signal<boolean>(false);
   breadcrumbs = signal<string[]>(['Soporte', 'Tablero']);
 
   // Diccionario para mapear tus rutas a los textos del breadcrumb
@@ -24,20 +31,37 @@ export class TopbarComponent {
   };
 
   constructor() {
-    // Escuchamos cada vez que la navegación termina exitosamente
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
-      takeUntilDestroyed() // Auto-limpia la suscripción si el componente se destruye
+      takeUntilDestroyed()
     ).subscribe((event: NavigationEnd) => {
 
-      // Obtenemos la URL actual limpia (sin parámetros extra)
       const currentUrl = event.urlAfterRedirects.split('?')[0];
-
-      // Buscamos el nombre en el diccionario, si no existe ponemos 'Tablero' por defecto
       const pageName = this.routeNames[currentUrl] || 'Tablero';
-
-      // Actualizamos la signal, lo que refrescará la vista automáticamente
       this.breadcrumbs.set(['Soporte', pageName]);
     });
+  }
+
+  toggleUserMenu() {
+    this.isUserMenuOpen.update(open => !open);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  closeMenu(): void {
+    this.isUserMenuOpen.set(false);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+
+    const target = event.target as HTMLElement;
+
+    if (!target.closest('.avatar-container')) {
+      this.closeMenu();
+    }
   }
 }

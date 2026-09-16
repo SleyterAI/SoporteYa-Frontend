@@ -69,3 +69,124 @@
   margin-left: 8px;
   cursor: pointer;
 }
+
+/* --- Contenedor del Avatar --- */
+.avatar-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-avatar {
+  /* ... tus estilos existentes de .topbar-avatar ... */
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.topbar-avatar:hover {
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15); /* Anillo suave al pasar el mouse */
+}
+
+.topbar-avatar:active {
+  transform: scale(0.95);
+}
+
+/* --- Menú Desplegable del Topbar --- */
+.topbar-dropdown {
+  position: absolute;
+  top: 120%; /* Se coloca justo debajo del avatar */
+  right: 0;
+  width: 220px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  z-index: 100;
+  animation: slideDownFade 0.15s ease-out;
+}
+
+@keyframes slideDownFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Información del usuario en la cabecera del menú */
+.dropdown-header {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px 12px 16px;
+}
+
+.dropdown-header .user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.dropdown-header .user-email {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 2px;
+  /* Trunca correos largos con puntos suspensivos */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Opciones del menú */
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: inherit;
+}
+
+.dropdown-item:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.dropdown-item .material-symbols-outlined {
+  font-size: 1.25rem;
+  color: #94a3b8;
+}
+
+.dropdown-item:hover .material-symbols-outlined {
+  color: #475569;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  margin: 4px 0;
+}
+
+/* Estilo para cerrar sesión */
+.logout-btn {
+  color: #ef4444;
+}
+
+.logout-btn .material-symbols-outlined {
+  color: #ef4444;
+}
+
+.logout-btn:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.logout-btn:hover .material-symbols-outlined {
+  color: #dc2626;
+}

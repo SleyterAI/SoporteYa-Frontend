@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, HostListener, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../features/user/services/auth.service';
+import { InitialsPipe } from '../../core/pipes/initials.pipe';
 
 interface MenuItem {
   id: string;
@@ -10,16 +12,19 @@ interface MenuItem {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, InitialsPipe],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
-  // Estado del usuario manejado con Signals
+  private readonly authService = inject(AuthService);
+  private router = inject(Router);
+  isUserMenuOpen = signal<boolean>(false);
+
   user = signal({
-    name: 'Ana Torres',
-    role: 'Administradora',
-    avatarInitials: 'AT'
+    name: this.authService.getEmail(),
+    role: this.authService.getRole(),
+    avatarInitials: this.authService.getEmail(),
   });
 
   // Agrupación de menús basada en el diseño
@@ -33,4 +38,27 @@ export class SidebarComponent {
     { id: 'base', label: 'Base de conocimiento', icon: 'menu_book', route: '/knowledge-base' },
     { id: 'config', label: 'Configuración', icon: 'settings', route: '/settings' }
   ]);
+
+  toggleUserMenu() {
+    this.isUserMenuOpen.update(open => !open);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  closeMenu(): void {
+    this.isUserMenuOpen.set(false);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+
+    const target = event.target as HTMLElement;
+
+    if (!target.closest('.user-profile')) {
+      this.closeMenu();
+    }
+  }
 }

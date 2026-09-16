@@ -6,15 +6,27 @@ import { MyTicketPageComponent } from './features/tickets/pages/my-ticket-page/m
 import { KnowledgeBasePageComponent } from './features/knowledge-base/pages/knowledge-base-page/knowledge-base-page.component';
 import { SettingsPageComponent } from './features/settings/pages/settings-page/settings-page.component';
 import { TicketFormComponent } from './features/tickets/components/ticket-form/ticket-form.component';
+import { LoginPageComponent } from './features/user/pages/login-page/login-page.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent
+  },
+  {
+    path: '',
     component: FullPageComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
-        redirectTo: 'ticket-board-page', // Ruta por defecto cuando entras a la app
+        redirectTo: 'ticket-board-page',
         pathMatch: 'full'
       },
       {
