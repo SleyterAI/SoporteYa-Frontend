@@ -11,37 +11,49 @@
     </button>
   </div>
 
-  <!-- Barra de Herramientas -->
+  <!-- Herramientas -->
   <div class="toolbar">
     <div class="search-box">
       <span class="material-symbols-outlined search-icon">search</span>
       <input type="text" placeholder="Buscar tickets...">
     </div>
+
     <div class="filters">
-      <select class="filter-select">
-        <option [disabled]>Todas</option>
-        <option>Abierto</option>
-        <option>En progreso</option>
-        <option>Resuelto</option>
-        <option>Cerrado</option>
+
+      <!-- Estado -->
+      <select class="filter-select" (change)="onEstadoChange($event)">
+        <option value="" selected>Todos los estados</option>
+        <option value="ABIERTO">Abierto</option>
+        <option value="EN_PROGRESO">En Progreso</option>
+        <option value="RESUELTO">Resuelto</option>
+        <option value="CERRADO">Cerrado</option>
       </select>
+
+      <!-- Prioridad -->
+      <select class="filter-select" (change)="onPrioridadChange($event)">
+        <option value="" selected>Todas las prioridades</option>
+        <option value="BAJA">Baja</option>
+        <option value="MEDIA">Media</option>
+        <option value="ALTA">Alta</option>
+      </select>
+
     </div>
   </div>
 
-  <!-- Contenedor de la Tabla -->
+  <!-- Tabla -->
   <div class="table-container">
 
-    <!-- Estado: Cargando -->
+    <!-- Cargando -->
     @if (ticketResource.isLoading()) {
       <div class="state-message">Cargando tickets...</div>
     }
 
-    <!-- Estado: Error -->
+    <!-- Error -->
     @else if (ticketResource.error()) {
       <div class="state-message error">Hubo un error al cargar los tickets.</div>
     }
 
-    <!-- Estado: Éxito (Datos listos) -->
+    <!-- (Datos listos) -->
     @else {
       <table class="tickets-table">
         <thead>
@@ -55,11 +67,11 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Iteramos sobre el valor real del resource -->
+          <!-- resource -->
           @for (ticket of ticketResource.value(); track ticket.id) {
             <tr>
 
-              <!-- Columna 1: ID y Título -->
+              <!-- ID y Título -->
               <td>
                 <div class="ticket-info">
                   <span class="ticket-id">#{{ ticket.id }}</span>
@@ -67,7 +79,7 @@
                 </div>
               </td>
 
-              <!-- Columna 2: Usuario (usando 'descripcion' como en tu card anterior) -->
+              <!-- Usuario -->
               <td>
                 <div class="user-info">
                   <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
@@ -75,16 +87,15 @@
                 </div>
               </td>
 
-              <!-- Columna 3: Estado -->
+              <!-- Estado -->
               <td>
                 <div class="status-badge">
-                  <!-- El color del punto cambia según el texto del estado -->
                   <span class="status-dot" [ngClass]="(ticket.estado || '').toLowerCase()"></span>
                   {{ ticket.estado || 'Nuevo' }}
                 </div>
               </td>
 
-              <!-- Columna 4: Prioridad -->
+              <!-- Prioridad -->
               <td>
                 <div class="priority-badge">
                   <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
@@ -92,10 +103,10 @@
                 </div>
               </td>
 
-              <!-- Columna 5: Fecha -->
+              <!--Fecha -->
               <td class="date-cell">{{ ticket.fechaCreacion | timeAgo}}</td>
 
-              <!-- Columna 6: Acciones -->
+              <!-- Acciones -->
               <td class="actions-cell">
                 <button class="btn-icon-text">
                   <span class="material-symbols-outlined">more_horiz</span>
@@ -104,9 +115,8 @@
 
             </tr>
           } @empty {
-            <!-- Se muestra si el array de tickets viene vacío -->
             <tr>
-              <td colspan="6" class="state-message">No hay tickets registrados.</td>
+              <td colspan="6" class="state-message">No hay tickets registrados que coincidan con los filtros.</td>
             </tr>
           }
         </tbody>
