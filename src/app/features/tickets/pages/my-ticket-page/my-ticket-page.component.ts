@@ -15,7 +15,7 @@ export class MyTicketPageComponent {
   private readonly ticketService = inject(TicketService);
 
   readonly ticketResource = rxResource({
-    stream: () => this.ticketService.getTickets()
+    stream: () => this.ticketService.getTicketByUserEmail()
   });
 
   getInitials(name: string): string {

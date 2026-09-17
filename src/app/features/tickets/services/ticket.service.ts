@@ -32,8 +32,13 @@ export class TicketService {
     return this.http.patch(`${this.apiUrl}/${id}/estado`, newStatus, { responseType: 'text' });
   }
 
-  deleteProducto(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  getTicketByUserEmail(): Observable<TicketResponse[]>{
+    return this.http.get<TicketResponse[]>(`${this.apiUrl}/user`);
   }
+
+  /*
+  deleteTicket(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }*/
 
 }
