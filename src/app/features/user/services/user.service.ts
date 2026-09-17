@@ -3,7 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
 
-import { RegistroRequestDto, UsuarioRequestDto } from "../interfaces/usuario.interface";
+import { RegistroRequestDto, UsuarioRequestDto, UsuarioResponseDto } from "../interfaces/usuario.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,8 @@ export class UserService {
     return this.http.post<RegistroRequestDto>(`${this.apiUrl}/register`, request);
   }
 
-  getAllUsuario(): Observable<UsuarioRequestDto[]> {
-    return this.http.get<UsuarioRequestDto[]>(this.apiUrl);
+  getAllUsuario(): Observable<UsuarioResponseDto[]> {
+    return this.http.get<UsuarioResponseDto[]>(this.apiUrl);
   }
 
   promoverAdmin(id: number, role: String): Observable<UsuarioRequestDto> {

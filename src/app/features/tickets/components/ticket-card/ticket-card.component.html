@@ -1,24 +1,25 @@
-<div class="ticket-card" draggable="true">
-  <!-- Cabecera: ID y Prioridad -->
+<div class="ticket-card" draggable="true"
+          [routerLink]="['/ticket', ticket().id]">
   <div class="ticket-header">
     <span class="ticket-id">#{{ ticket().id }}</span>
+    <span>{{ ticket().estado || 'General' }}</span>
     <span class="priority-dot" [ngClass]="(ticket().prioridad || '').toLowerCase()"></span>
   </div>
 
-  <!-- Título principal -->
+  <!-- Título -->
   <h4 class="ticket-title">{{ ticket().titulo }}</h4>
 
-  <!-- Categoría o estado descriptivo -->
+  <!-- Categoría  -->
   <div class="ticket-category">
     <span class="material-symbols-outlined icon-small">sell</span>
-    <span>{{ ticket().estado || 'General' }}</span>
+    <span>{{ ticket().categoria_name || 'General' }}</span>
   </div>
 
   <!-- Pie de la tarjeta -->
   <div class="ticket-footer">
     <div class="assignee">
       <div class="avatar-fallback">{{ getInitials() }}</div>
-      <span class="assignee-name">{{ ticket().descripcion || 'Sin asignar' }}</span>
+      <span class="assignee-name">{{ ticket().user_fullname || 'Sin asignar' }}</span>
     </div>
 
     <span class="time-ago">{{ ticket().fechaCreacion | timeAgo}}</span>

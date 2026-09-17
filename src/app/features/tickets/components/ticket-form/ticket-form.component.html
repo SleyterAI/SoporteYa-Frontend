@@ -1,32 +1,49 @@
 <div class="form-container">
-  <!-- Cabecera del formulario -->
+  <!-- Cabecera -->
   <div class="form-header">
     <h3>Crear ticket</h3>
     <p>Registre una solicitud con la información necesaria para darle seguimiento.</p>
   </div>
 
-  <!-- Formulario Reactivo -->
-  <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="ticket-form">
+  <!-- Formulario -->
+  <form [formGroup]="ticketForm" (ngSubmit)="createTicket()" class="ticket-form">
 
-    <!-- Asunto (Ancho completo) -->
+    <!-- Asunto -->
     <div class="form-group full-width">
       <label for="asunto">Asunto</label>
       <input
         id="asunto"
         type="text"
-        formControlName="asunto"
+        formControlName="titulo"
         placeholder="¿En qué podemos ayudarte?"
-        [class.is-invalid]="ticketForm.controls.asunto.touched && ticketForm.controls.asunto.invalid"
+        [class.is-invalid]="ticketForm.controls.titulo.touched && ticketForm.controls.titulo.invalid"
       >
     </div>
 
-    <!-- Fila de Categoría y Prioridad (2 columnas) -->
+    <!-- Categoría -->
     <div class="form-row">
       <div class="form-group half-width">
         <label for="categoria">Categoría</label>
-        <select id="categoria" formControlName="categoria">
-          @for (cat of categorias; track cat) {
-            <option [value]="cat">{{ cat }}</option>
+        <select id="categoria" formControlName="categoria_id">
+          <option value="" disabled>
+            Todas las categorías
+          </option>
+          @for (cat of categoriaResource.value(); track cat.id) {
+            <option [value]="cat.id">
+              {{ cat.name }}
+            </option>
+          }
+        </select>
+
+        <label for="user">Usuario</label>
+        <select id="user" formControlName="user_id">
+          <option value="" disabled>
+            Selecciona un usuario
+          </option>
+          @for (user of userResource.value(); track user.id) {
+            <option [value]="user.id">
+              {{ user.fullname }}
+            </option>
           }
         </select>
       </div>
@@ -41,7 +58,7 @@
       </div>
     </div>
 
-    <!-- Descripción (Ancho completo) -->
+    <!-- Descripcion -->
     <div class="form-group full-width">
       <label for="descripcion">Descripción</label>
       <textarea
@@ -53,7 +70,7 @@
       ></textarea>
     </div>
 
-    <!-- Acciones / Botones -->
+    <!-- Botones -->
     <div class="form-actions">
       <button type="button" class="btn-cancel" (click)="onCancel()">Cancelar</button>
       <button type="submit" class="btn-primary" [disabled]="ticketForm.invalid">
@@ -61,6 +78,12 @@
         Crear ticket
       </button>
     </div>
-
   </form>
 </div>
+
+@if (showToast()) {
+  <app-toast
+    title="¡Ticket creado!"
+    message="El ticket se creo correctamente.">
+  </app-toast>
+}

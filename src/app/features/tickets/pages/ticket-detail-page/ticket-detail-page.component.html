@@ -1,0 +1,132 @@
+<div class="page-container">
+
+  <a routerLink="/ticket-board-page" class="back-link">
+    <span class="material-symbols-outlined">arrow_back</span>
+    Volver a la lista de tickets
+  </a>
+
+  @if (ticketResource.isLoading()) {
+    <div class="state-message">
+      <span class="material-symbols-outlined spin-icon">sync</span>
+      Cargando detalles del ticket...
+    </div>
+  } @else if (ticketResource.error()) {
+    <div class="state-message error">
+      <span class="material-symbols-outlined">error</span>
+      No se pudo cargar la información del ticket.
+    </div>
+  } @else if (ticketResource.value(); as ticket) {
+
+    <!-- Cabecera -->
+    <div class="ticket-header">
+      <div class="title-row">
+        <h2>{{ ticket.titulo }}</h2>
+        <div class="status-badge">
+          <span class="status-dot" [ngClass]="(ticket.estado || '').toLowerCase()"></span>
+          {{ ticket.estado || 'ABIERTO' }}
+        </div>
+      </div>
+      <p class="ticket-id">Ticket #{{ ticket.id }}</p>
+    </div>
+
+    <!-- Layout Dividido -->
+    <div class="ticket-layout">
+
+      <!-- Columna Principal -->
+      <div class="main-column">
+        <div class="detail-card">
+          <div class="card-header">
+            <h3>Descripción del problema</h3>
+          </div>
+          <div class="card-body">
+            <p class="description-text">{{ ticket.descripcion || 'Sin descripción proporcionada.' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Lateral (Propiedades y Acciones) -->
+      <div class="sidebar-column">
+        <div class="detail-card meta-card">
+
+          <!-- NUEVO: Solicitante (user_fullname) -->
+          <div class="meta-group">
+            <span class="meta-label">Solicitante</span>
+            <div class="user-info-row">
+              <div class="avatar-small">{{ getInitials(ticket.user_fullname) }}</div>
+              <span class="meta-value">{{ ticket.user_fullname || 'Usuario Desconocido' }}</span>
+            </div>
+          </div>
+
+          <div class="meta-divider"></div>
+
+          <!-- Prioridad y Categoría -->
+          <div class="meta-group">
+            <span class="meta-label">Prioridad</span>
+            <div class="priority-badge">
+              <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
+              {{ ticket.prioridad || 'Media' }}
+            </div>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-group">
+            <span class="meta-label">Categoría</span>
+            <span class="meta-value">{{ ticket.categoria_name || 'Sin categoría' }}</span>
+          </div>
+          <div class="meta-divider"></div>
+          <div class="meta-group">
+            <span class="meta-label">Fecha de creación</span>
+            <span class="meta-value">{{ ticket.fechaCreacion | date:'dd/MM/yyyy, HH:mm' }}</span>
+            <span class="meta-value">{{ ticket.fechaCreacion | timeAgo }}</span>
+          </div>
+
+          <div class="meta-divider"></div>
+
+          <!-- Workflow -->
+          <div class="meta-actions">
+
+            <!-- Flujo: ABIERTO -> EN_PROGRESO -->
+            @if (ticket.estado === 'ABIERTO' || !ticket.estado) {
+              <button class="btn-primary" (click)="cambiarEstado('EN_PROGRESO')">
+                <span class="material-symbols-outlined">play_arrow</span>
+                Iniciar atención
+              </button>
+            }
+
+            <!-- Flujo: EN_PROGRESO -> RESUELTO -->
+            @else if (ticket.estado === 'EN_PROGRESO') {
+              <button class="btn-success" (click)="cambiarEstado('RESUELTO')">
+                <span class="material-symbols-outlined">check_circle</span>
+                Marcar como Resuelto
+              </button>
+            }
+
+            <!-- Flujo: RESUELTO -> CERRADO o devolver a EN_PROGRESO -->
+            @else if (ticket.estado === 'RESUELTO') {
+              <button class="btn-primary" (click)="cambiarEstado('CERRADO')">
+                <span class="material-symbols-outlined">inventory_2</span>
+                Cerrar Ticket Definitivamente
+              </button>
+
+              <button class="btn-outline text-warning" (click)="cambiarEstado('EN_PROGRESO')">
+                <span class="material-symbols-outlined">replay</span>
+                Devolver a Progreso
+              </button>
+            }
+
+            <!-- Propiedades -->
+            <button class="btn-outline">Editar propiedades</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  }
+</div>
+
+@if (showToast()) {
+  <app-toast
+    title="¡Estado actualizado!"
+    message="El ticket se actualizo correctamente.">
+  </app-toast>
+}

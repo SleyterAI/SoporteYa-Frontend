@@ -8,6 +8,7 @@ import { SettingsPageComponent } from './features/settings/pages/settings-page/s
 import { TicketFormComponent } from './features/tickets/components/ticket-form/ticket-form.component';
 import { LoginPageComponent } from './features/user/pages/login-page/login-page.component';
 import { authGuard } from './core/guards/auth.guard';
+import { TicketDetailPageComponent } from './features/tickets/pages/ticket-detail-page/ticket-detail-page.component';
 
 export const routes: Routes = [
   {
@@ -32,6 +33,10 @@ export const routes: Routes = [
       {
         path: 'ticket-board-page',
         component: TicketBoardPageComponent,
+      },
+      {
+        path: 'ticket/:id',
+        component: TicketDetailPageComponent,
       },
       {
         path: 'ticket-form',

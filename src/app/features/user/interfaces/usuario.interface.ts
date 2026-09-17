@@ -26,5 +26,8 @@ export interface UsuarioRequestDto{
 }
 
 export interface UsuarioResponseDto{
-
+  id:number;
+  fullname:string;
+  email:string;
+  role:string;
 }

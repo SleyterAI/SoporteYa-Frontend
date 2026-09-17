@@ -1,0 +1,292 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* --- Navegación superior --- */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+  width: fit-content;
+}
+
+.back-link:hover {
+  color: #0f172a;
+}
+
+.back-link .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
+/* --- Mensajes de estado --- */
+.state-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 64px 32px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.state-message.error {
+  color: #ef4444;
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Cabecera del ticket --- */
+.ticket-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ticket-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.ticket-id {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+/* --- Layout Principal --- */
+.ticket-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .ticket-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Tarjetas (Cards) --- */
+.detail-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+.description-text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.6;
+  white-space: pre-wrap; /* Mantiene los saltos de línea del textarea */
+}
+
+/* --- Columna Lateral (Meta información) --- */
+.meta-card {
+  padding: 24px;
+}
+
+.meta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.meta-value {
+  font-size: 0.875rem;
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.meta-subtext {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.meta-divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  margin: 16px 0;
+}
+
+/* --- Acciones (Botones) --- */
+.meta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.btn-outline:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+/* --- Badges y Dots --- */
+.status-badge { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; color: #475569; background: #f8fafc; padding: 4px 12px; border-radius: 20px; border: 1px solid #e2e8f0; font-weight: 500;}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #cbd5e1; }
+.status-dot.nuevo { background-color: #3b82f6; }
+.status-dot.progreso { background-color: #f59e0b; }
+.status-dot.resuelto { background-color: #10b981; }
+
+.priority-badge { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; color: #0f172a; font-weight: 500; }
+.priority-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #cbd5e1; }
+.priority-dot.baja { background-color: #10b981; }
+.priority-dot.media { background-color: #f59e0b; }
+.priority-dot.alta { background-color: #ef4444; }
+
+/* --- Info del Solicitante --- */
+.user-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.avatar-small {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* --- Botones de Flujo de Trabajo --- */
+.btn-primary, .btn-success, .btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.btn-primary .material-symbols-outlined,
+.btn-success .material-symbols-outlined,
+.btn-outline .material-symbols-outlined {
+  font-size: 1.125rem;
+}
+
+/* Botón Verde para "Resolver" */
+.btn-success {
+  background-color: #10b981;
+  color: white;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #059669;
+}
+
+/* Variante Outline Warning (Para devolver a progreso) */
+.btn-outline.text-warning {
+  color: #d97706; /* Color ámbar oscuro */
+  border-color: #fcd34d;
+}
+
+.btn-outline.text-warning:hover {
+  background-color: #fffbeb;
+  border-color: #d97706;
+}
+
+/* --- Colores de Estados Dinámicos --- */
+.status-dot.abierto { background-color: #3b82f6; }   /* Azul */
+.status-dot.en_progreso { background-color: #f59e0b; } /* Amarillo */
+.status-dot.resuelto { background-color: #10b981; }  /* Verde */
+.status-dot.cerrado { background-color: #64748b; }   /* Gris */

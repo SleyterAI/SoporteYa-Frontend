@@ -35,6 +35,6 @@ export class TimeAgoPipe implements PipeTransform {
     }
 
     // Si pasaron 48 horas o más
-    return `${diffDays} días`;
+    return `Hace ${diffDays} días`;
   }
 }

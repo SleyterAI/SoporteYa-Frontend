@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Ticket, TicketRequest, TicketResponse } from '../models/ticket.interface';
+import { Ticket, TicketRequest, TicketResponse, UpdateTicketRequest } from '../models/ticket.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class TicketService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/tickets`;
 
-  createTicket(ticketResponse: TicketResponse): Observable<TicketRequest> {
-    return this.http.post<TicketRequest>(this.apiUrl, ticketResponse);
+  createTicket(TicketRequest: TicketRequest): Observable<TicketResponse> {
+    return this.http.post<TicketResponse>(this.apiUrl, TicketRequest);
   }
 
   getTickets(estado?: string, prioridad?: string): Observable<TicketResponse[]> {
@@ -28,9 +28,8 @@ export class TicketService {
     return this.http.get<TicketResponse>(`${this.apiUrl}/${id}`);
   }
 
-  updateTicketEstado(id: number, newStatus: Ticket): Observable<string> {
-    return this.http.patch(`${this.apiUrl}/${id}/estado`, { newStatus },
-      { responseType: 'text' });
+  updateTicketEstado(id: number, newStatus: UpdateTicketRequest): Observable<string> {
+    return this.http.patch(`${this.apiUrl}/${id}/estado`, newStatus, { responseType: 'text' });
   }
 
   deleteProducto(id: number): Observable<void> {
