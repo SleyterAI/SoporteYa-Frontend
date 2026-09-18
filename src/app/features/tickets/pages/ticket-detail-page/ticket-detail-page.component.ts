@@ -4,8 +4,8 @@ import { TicketService } from '../../services/ticket.service';
 import { DatePipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TimeAgoPipe } from '../../../../core/pipes/time-ago.pipe';
-import { UpdateTicketRequest } from '../../models/ticket.interface';
 import { ToastComponent } from '../../../../components/toast/toast.component';
+import { TicketEstadoRequest, TicketPrioridadRequest } from '../../models/ticket.interface';
 
 @Component({
   selector: 'app-all-ticket-page',
@@ -15,7 +15,8 @@ import { ToastComponent } from '../../../../components/toast/toast.component';
 })
 export class TicketDetailPageComponent {
   private readonly ticketService = inject(TicketService);
-  showToast = signal(false);
+  showToastEstado = signal(false);
+  showToastPrioridad = signal(false);
 
   id = input.required<string>();
 
@@ -34,8 +35,33 @@ export class TicketDetailPageComponent {
       : parts[0].substring(0, 2).toUpperCase();
   }
 
+  cambiarPrioridad(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const nuevaPrioridad = selectElement.value;
+
+    const payload: TicketPrioridadRequest = {
+      prioridad: nuevaPrioridad
+    };
+
+    this.ticketService.updateTicketPrioridad(Number(this.id()), payload).subscribe({
+      next: () => {
+        //Magic ng21 reload
+        this.ticketResource.reload();
+
+        this.showToastPrioridad.set(true);
+        setTimeout(() => {
+          this.showToastPrioridad.set(false);
+        }, 1500);
+
+      },
+      error: (err) => {
+        console.error('Error prioridad: ', err);
+      }
+    });
+  }
+
   cambiarEstado(nuevoEstado: string) {
-    const payload: UpdateTicketRequest = {
+    const payload: TicketEstadoRequest = {
       estado: nuevoEstado
     };
 
@@ -44,14 +70,14 @@ export class TicketDetailPageComponent {
         //Magic ng21 reload
         this.ticketResource.reload();
 
-        this.showToast.set(true);
+        this.showToastEstado.set(true);
         setTimeout(() => {
-          this.showToast.set(false);
+          this.showToastEstado.set(false);
         }, 1500);
 
       },
       error: (err) => {
-        console.error('Ocurrió un error al intentar cambiar el estado:', err);
+        console.error('Error estado:', err);
       }
     });
   }

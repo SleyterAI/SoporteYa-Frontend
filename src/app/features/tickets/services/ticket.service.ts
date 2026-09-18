@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Ticket, TicketRequest, TicketResponse, UpdateTicketRequest } from '../models/ticket.interface';
+import { Ticket, TicketRequest, TicketResponse, TicketEstadoRequest, TicketPrioridadRequest } from '../models/ticket.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +28,16 @@ export class TicketService {
     return this.http.get<TicketResponse>(`${this.apiUrl}/${id}`);
   }
 
-  updateTicketEstado(id: number, newStatus: UpdateTicketRequest): Observable<string> {
+  updateTicketEstado(id: number, newStatus: TicketEstadoRequest): Observable<string> {
     return this.http.patch(`${this.apiUrl}/${id}/estado`, newStatus, { responseType: 'text' });
   }
 
   getTicketByUserEmail(): Observable<TicketResponse[]>{
     return this.http.get<TicketResponse[]>(`${this.apiUrl}/user`);
+  }
+
+  updateTicketPrioridad(id: number, newPrioridad: TicketPrioridadRequest): Observable<string> {
+    return this.http.patch(`${this.apiUrl}/${id}/prioridad`, newPrioridad, { responseType: 'text' });
   }
 
   /*

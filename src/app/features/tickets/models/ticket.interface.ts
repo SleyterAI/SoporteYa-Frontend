@@ -33,7 +33,11 @@ export interface TicketResponse{
   user_fullname: string;
 }
 
-export interface UpdateTicketRequest{
+export interface TicketEstadoRequest{
   estado: string;
+}
+
+export interface TicketPrioridadRequest{
+  prioridad: string;
 }
 

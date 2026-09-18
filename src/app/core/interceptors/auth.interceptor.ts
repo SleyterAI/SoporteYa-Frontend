@@ -11,9 +11,12 @@ export const authInterceptor: HttpInterceptorFn = (request, next)=> {
   const router = inject(Router);
   const token = authService.getToken();
 
+  const rutasPublicas = ['/auth'];
 
-  if (!token) {
-    return next(request); //Observable<HttpEvent>
+  const esPublica = rutasPublicas.some(ruta => request.url.includes(ruta));
+
+  if (esPublica || !token) {
+    return next(request);
   }
 
   const authRequest = request.clone({
@@ -25,7 +28,6 @@ export const authInterceptor: HttpInterceptorFn = (request, next)=> {
 
   return next(authRequest).pipe(
     catchError(error=> {
-
       if (error.status=== 404 || error.status === 1003) {
         authService.logout();
         router.navigate(['/login']);

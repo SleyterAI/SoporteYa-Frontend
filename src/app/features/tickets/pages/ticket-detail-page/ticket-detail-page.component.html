@@ -32,7 +32,7 @@
     <!-- Layout Dividido -->
     <div class="ticket-layout">
 
-      <!-- Columna Principal -->
+      <!-- Principal-->
       <div class="main-column">
         <div class="detail-card">
           <div class="card-header">
@@ -41,6 +41,30 @@
           <div class="card-body">
             <p class="description-text">{{ ticket.descripcion || 'Sin descripción proporcionada.' }}</p>
           </div>
+
+          <!-- Divisor -->
+          <div class="card-inner-divider"></div>
+
+          <!-- Prioridad y Categoria -->
+          <div class="card-footer-info">
+
+            <div class="meta-group">
+              <span class="meta-label">Prioridad</span>
+
+              <select class="compact-select" [value]="ticket.prioridad" (change)="cambiarPrioridad($event)">
+                <option value="" disabled>NO DETERMINADO</option>
+                <option value="BAJA">BAJA</option>
+                <option value="MEDIA">MEDIA</option>
+                <option value="ALTA">ALTA</option>
+              </select>
+            </div>
+
+            <div class="meta-group">
+              <span class="meta-label">Categoría</span>
+              <span class="meta-value">{{ ticket.categoria_name || 'Sin categoría' }}</span>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -48,7 +72,7 @@
       <div class="sidebar-column">
         <div class="detail-card meta-card">
 
-          <!-- NUEVO: Solicitante (user_fullname) -->
+          <!-- Solicitante (user_fullname) -->
           <div class="meta-group">
             <span class="meta-label">Solicitante</span>
             <div class="user-info-row">
@@ -59,20 +83,6 @@
 
           <div class="meta-divider"></div>
 
-          <!-- Prioridad y Categoría -->
-          <div class="meta-group">
-            <span class="meta-label">Prioridad</span>
-            <div class="priority-badge">
-              <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
-              {{ ticket.prioridad || 'Media' }}
-            </div>
-          </div>
-          <div class="meta-divider"></div>
-          <div class="meta-group">
-            <span class="meta-label">Categoría</span>
-            <span class="meta-value">{{ ticket.categoria_name || 'Sin categoría' }}</span>
-          </div>
-          <div class="meta-divider"></div>
           <div class="meta-group">
             <span class="meta-label">Fecha de creación</span>
             <span class="meta-value">{{ ticket.fechaCreacion | date:'dd/MM/yyyy, HH:mm' }}</span>
@@ -124,9 +134,16 @@
   }
 </div>
 
-@if (showToast()) {
+@if (showToastEstado()) {
   <app-toast
     title="¡Estado actualizado!"
-    message="El ticket se actualizo correctamente.">
+    message="Se actualizo el estado correctamente.">
+  </app-toast>
+}
+
+@if (showToastPrioridad()) {
+  <app-toast
+    title="Prioridad actualizada!"
+    message="Se actualizo la prioridad correctamente.">
   </app-toast>
 }

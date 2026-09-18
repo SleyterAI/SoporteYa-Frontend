@@ -290,3 +290,45 @@
 .status-dot.en_progreso { background-color: #f59e0b; } /* Amarillo */
 .status-dot.resuelto { background-color: #10b981; }  /* Verde */
 .status-dot.cerrado { background-color: #64748b; }   /* Gris */
+
+/* Divisor interno para separar la descripción de la prioridad/categoría */
+.card-inner-divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  width: 100%;
+}
+
+/* Contenedor inferior dentro de la misma tarjeta principal */
+.card-footer-info {
+  display: flex;
+  gap: 40px;
+  padding: 20px 24px;
+  align-items: center;
+  background-color: #fafbfc;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Combo box acortado y estilizado */
+.compact-select {
+  width: 180px; /* Ancho acortado perfecto */
+  padding: 8px 12px;
+  margin-top: 6px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #0f172a;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.compact-select:hover {
+  border-color: #94a3b8;
+}
+
+.compact-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
