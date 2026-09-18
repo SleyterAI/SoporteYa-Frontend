@@ -34,13 +34,15 @@ export class TicketFormComponent {
     stream: () => this.categoriaService.getAllCategoria()
   });
 
+  readonly userIdResource = rxResource({
+    stream: () => this.userService.getUserIdByEmail()
+  });
+
   // Definición del formulario reactivo
   ticketForm = this.fb.nonNullable.group({
     titulo: ['', [Validators.required, Validators.minLength(5)]],
-    prioridad: ['Baja', Validators.required],
-    categoria_id: [0, [Validators.required, Validators.min(1)]],
-    user_id: [0, [Validators.required, Validators.min(1)]],
     descripcion: ['', Validators.required],
+    categoria_id: [0, [Validators.required, Validators.min(1)]],
   });
 
   createTicket() {
@@ -50,13 +52,18 @@ export class TicketFormComponent {
     }
     const formValues = this.ticketForm.getRawValue();
 
+    const user_id = this.userIdResource.value();
+    if (!user_id) {
+      console.warn('User_Id cargando');
+      return;
+    }
+
     // Construimos el request cumpliendo al 100% con las interfaces
     const request: TicketRequest = {
       titulo: formValues.titulo,
       descripcion: formValues.descripcion,
-      prioridad: formValues.prioridad,
       categoria: { id: formValues.categoria_id },
-      user: { id: formValues.user_id }
+      user: { id: user_id }
     };
 
     this.ticketService.createTicket(request).subscribe({

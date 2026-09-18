@@ -18,7 +18,6 @@ export interface Ticket{
 export interface TicketRequest{
   titulo: string;
   descripcion: string;
-  prioridad: string;
   categoria: Categoria;
   user: User;
 }
