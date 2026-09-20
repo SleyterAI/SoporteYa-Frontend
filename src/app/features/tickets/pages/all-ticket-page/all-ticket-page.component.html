@@ -78,7 +78,7 @@
                 </td>
                 <td>
                   <div class="user-info">
-                    <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
+                    <div class="avatar-fallback">{{ getInitials(ticket.user_fullname) }}</div>
                     <span class="user-name">{{ ticket.user_fullname }}</span>
                   </div>
                 </td>
@@ -132,7 +132,7 @@
             <!-- Información del usuario y fecha -->
             <div class="card-body-info">
               <div class="user-info">
-                <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
+                <div class="avatar-fallback">{{ getInitials(ticket.user_fullname) }}</div>
                 <span class="user-name">{{ ticket.user_fullname }}</span>
               </div>
               <span class="date-cell">{{ ticket.fechaCreacion | timeAgo }}</span>
