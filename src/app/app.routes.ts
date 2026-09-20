@@ -9,6 +9,7 @@ import { TicketFormComponent } from './features/tickets/components/ticket-form/t
 import { LoginPageComponent } from './features/user/pages/login-page/login-page.component';
 import { authGuard } from './core/guards/auth.guard';
 import { TicketDetailPageComponent } from './features/tickets/pages/ticket-detail-page/ticket-detail-page.component';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,7 @@ export const routes: Routes = [
       {
         path: 'ticket/:id',
         component: TicketDetailPageComponent,
+        canActivate: [adminGuard]
       },
       {
         path: 'ticket-form',

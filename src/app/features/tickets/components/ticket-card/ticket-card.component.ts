@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { TicketResponse } from '../../models/ticket.interface';
 import { TimeAgoPipe } from '../../../../core/pipes/time-ago.pipe';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-ticket-card',
@@ -12,6 +13,8 @@ import { RouterLink } from '@angular/router';
 })
 export class TicketCardComponent {
   ticket = input.required<TicketResponse>();
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   getInitials(): string {
     const name = this.ticket().user_fullname;
@@ -20,5 +23,15 @@ export class TicketCardComponent {
     return parts.length > 1
       ? (parts[0][0] + parts[1][0]).toUpperCase()
       : parts[0].substring(0, 2).toUpperCase();
+  }
+
+  onCardClick() {
+    const role = this.authService.getRole();
+
+    if (role === 'ROLE_ADMIN') {
+      this.router.navigate(['/ticket', this.ticket().id]);
+    } else {
+      console.warn('Not access');
+    }
   }
 }

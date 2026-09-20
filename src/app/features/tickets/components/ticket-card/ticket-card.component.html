@@ -1,5 +1,4 @@
-<div class="ticket-card" draggable="true"
-          [routerLink]="['/ticket', ticket().id]">
+<div class="ticket-card" draggable="true" (click)="onCardClick()">
   <div class="ticket-header">
     <span class="ticket-id">#{{ ticket().id }}</span>
     <span>{{ ticket().estado || 'General' }}</span>
