@@ -19,7 +19,6 @@
     </div>
 
     <div class="filters">
-
       <!-- Estado -->
       <select class="filter-select" (change)="onEstadoChange($event)">
         <option value="" selected>Todos los estados</option>
@@ -36,11 +35,10 @@
         <option value="MEDIA">Media</option>
         <option value="ALTA">Alta</option>
       </select>
-
     </div>
   </div>
 
-  <!-- Tabla -->
+  <!-- Contenedor Principal de Datos -->
   <div class="table-container">
 
     <!-- Cargando -->
@@ -55,72 +53,108 @@
 
     <!-- (Datos listos) -->
     @else {
-      <table class="tickets-table">
-        <thead>
-          <tr>
-            <th>TICKET</th>
-            <th>SOLICITANTE</th>
-            <th>ESTADO</th>
-            <th>PRIORIDAD</th>
-            <th>FECHA</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- resource -->
-          @for (ticket of ticketResource.value(); track ticket.id) {
+
+      <!-- 1. VISTA DE TABLA (Visible solo en Desktop) -->
+      <div class="desktop-view">
+        <table class="tickets-table">
+          <thead>
             <tr>
+              <th>TICKET</th>
+              <th>SOLICITANTE</th>
+              <th>ESTADO</th>
+              <th>PRIORIDAD</th>
+              <th>FECHA</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (ticket of ticketResource.value(); track ticket.id) {
+              <tr>
+                <td>
+                  <div class="ticket-info">
+                    <span class="ticket-id">#{{ ticket.id }}</span>
+                    <span class="ticket-title">{{ ticket.titulo }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="user-info">
+                    <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
+                    <span class="user-name">{{ ticket.user_fullname }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="status-badge">
+                    <span class="status-dot" [ngClass]="(ticket.estado || '').toLowerCase()"></span>
+                    {{ ticket.estado || 'Nuevo' }}
+                  </div>
+                </td>
+                <td>
+                  <div class="priority-badge">
+                    <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
+                    {{ ticket.prioridad || 'Media' }}
+                  </div>
+                </td>
+                <td class="date-cell">{{ ticket.fechaCreacion | timeAgo }}</td>
+                <td class="actions-cell">
+                  <button class="btn-icon-text">
+                    <span class="material-symbols-outlined">more_horiz</span>
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="6" class="state-message">No hay tickets registrados que coincidan con los filtros.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
 
-              <!-- ID y Título -->
-              <td>
-                <div class="ticket-info">
-                  <span class="ticket-id">#{{ ticket.id }}</span>
-                  <span class="ticket-title">{{ ticket.titulo }}</span>
-                </div>
-              </td>
+      <!-- 2. VISTA DE TARJETAS (Visible solo en Mobile) -->
+      <div class="mobile-view">
+        @for (ticket of ticketResource.value(); track ticket.id) {
+          <div class="mobile-ticket-card">
 
-              <!-- Usuario -->
-              <td>
-                <div class="user-info">
-                  <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
-                  <span class="user-name">{{ ticket.user_fullname }}</span>
-                </div>
-              </td>
-
-              <!-- Estado -->
-              <td>
-                <div class="status-badge">
+            <!-- Cabecera de la tarjeta: ID y Prioridad/Estado -->
+            <div class="card-header-top">
+              <span class="ticket-id">#{{ ticket.id }}</span>
+              <div class="badges-group">
+                <span class="status-badge-sm">
                   <span class="status-dot" [ngClass]="(ticket.estado || '').toLowerCase()"></span>
                   {{ ticket.estado || 'Nuevo' }}
-                </div>
-              </td>
+                </span>
+              </div>
+            </div>
 
-              <!-- Prioridad -->
-              <td>
-                <div class="priority-badge">
-                  <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
-                  {{ ticket.prioridad || 'Media' }}
-                </div>
-              </td>
+            <!-- Título del ticket -->
+            <h4 class="card-ticket-title">{{ ticket.titulo }}</h4>
 
-              <!--Fecha -->
-              <td class="date-cell">{{ ticket.fechaCreacion | timeAgo}}</td>
+            <!-- Información del usuario y fecha -->
+            <div class="card-body-info">
+              <div class="user-info">
+                <div class="avatar-fallback">{{ getInitials(ticket.descripcion) }}</div>
+                <span class="user-name">{{ ticket.user_fullname }}</span>
+              </div>
+              <span class="date-cell">{{ ticket.fechaCreacion | timeAgo }}</span>
+            </div>
 
-              <!-- Acciones -->
-              <td class="actions-cell">
-                <button class="btn-icon-text">
-                  <span class="material-symbols-outlined">more_horiz</span>
-                </button>
-              </td>
+            <!-- Pie de tarjeta (Prioridad y Acciones) -->
+            <div class="card-footer-bottom">
+              <div class="priority-badge">
+                <span class="priority-dot" [ngClass]="(ticket.prioridad || '').toLowerCase()"></span>
+                {{ ticket.prioridad || 'Media' }}
+              </div>
+              <button class="btn-icon-text">
+                <span class="material-symbols-outlined">more_horiz</span>
+              </button>
+            </div>
 
-            </tr>
-          } @empty {
-            <tr>
-              <td colspan="6" class="state-message">No hay tickets registrados que coincidan con los filtros.</td>
-            </tr>
-          }
-        </tbody>
-      </table>
+          </div>
+        } @empty {
+          <div class="state-message">No hay tickets registrados que coincidan con los filtros.</div>
+        }
+      </div>
+
     }
   </div>
 </div>

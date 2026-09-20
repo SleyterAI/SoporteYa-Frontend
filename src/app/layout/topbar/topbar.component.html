@@ -1,4 +1,9 @@
 <header class="topbar">
+
+  <button class="mobile-toggle-btn" (click)="toggleMenu()" aria-label="Abrir menú">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+
   <div class="breadcrumbs">
     @for (crumb of breadcrumbs(); track $index; let last = $last) {
     <span [class.active]="last">{{ crumb }}</span>

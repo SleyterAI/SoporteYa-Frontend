@@ -266,3 +266,70 @@ ul { list-style: none; padding: 0; margin: 0; }
   background-color: rgba(239, 68, 68, 0.1);
   color: #fca5a5;
 }
+
+/* sidebar.component.css */
+
+/* Por defecto en Desktop se queda estático o como lo tengas */
+.mobile-toggle-btn {
+  display: none;
+}
+
+.mobile-backdrop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  :host {
+    width: 0;
+    height: auto;
+    background-color: transparent;
+  }
+
+  .mobile-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1100;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  /* El sidebar se oculta totalmente fuera de la pantalla por la izquierda */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%; /* Fuera de la vista completamente */
+    width: 280px;
+    height: 100vh;
+    z-index: 1050;
+    transition: left 0.3s ease-in-out;
+    background-color: #0f172a; /* Color de fondo oscuro */
+  }
+
+  /* Cuando la signal lo activa, entra en la pantalla */
+  .sidebar.mobile-open {
+    left: 0;
+    box-shadow: 10px 0 25px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Fondo semitransparente oscuro */
+  .mobile-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    backdrop-filter: blur(2px);
+  }
+}

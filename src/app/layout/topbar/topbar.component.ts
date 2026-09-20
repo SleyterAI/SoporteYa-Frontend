@@ -4,6 +4,7 @@ import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../features/user/services/auth.service';
 import { InitialsPipe } from '../../core/pipes/initials.pipe';
+import { SidebarMenuService } from '../services/sibear-menu.service';
 
 @Component({
   selector: 'app-topbar',
@@ -14,6 +15,11 @@ import { InitialsPipe } from '../../core/pipes/initials.pipe';
 export class TopbarComponent {
   private router = inject(Router);
   private readonly authService = inject(AuthService);
+  private readonly sidebarState = inject(SidebarMenuService);
+
+  toggleMenu() {
+    this.sidebarState.toggleMobileMenu();
+  }
 
   email = this.authService.getEmail();
 

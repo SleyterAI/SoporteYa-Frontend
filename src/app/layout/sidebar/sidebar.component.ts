@@ -2,6 +2,7 @@ import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../features/user/services/auth.service';
 import { InitialsPipe } from '../../core/pipes/initials.pipe';
+import { SidebarMenuService } from '../services/sibear-menu.service';
 
 interface MenuItem {
   id: string;
@@ -18,8 +19,11 @@ interface MenuItem {
 })
 export class SidebarComponent {
   private readonly authService = inject(AuthService);
+  private readonly sidebarState = inject(SidebarMenuService);
   private router = inject(Router);
   isUserMenuOpen = signal<boolean>(false);
+
+  isMobileMenuOpen = this.sidebarState.isMobileMenuOpen;
 
   user = signal({
     name: this.authService.getEmail(),
@@ -60,5 +64,9 @@ export class SidebarComponent {
     if (!target.closest('.user-profile')) {
       this.closeMenu();
     }
+  }
+
+  closeMobileMenu() {
+    this.sidebarState.closeMobileMenu();
   }
 }

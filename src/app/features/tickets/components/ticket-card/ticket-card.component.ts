@@ -2,12 +2,12 @@ import { NgClass } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { TicketResponse } from '../../models/ticket.interface';
 import { TimeAgoPipe } from '../../../../core/pipes/time-ago.pipe';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../user/services/auth.service';
 
 @Component({
   selector: 'app-ticket-card',
-  imports: [NgClass, TimeAgoPipe, RouterLink],
+  imports: [NgClass, TimeAgoPipe],
   templateUrl: './ticket-card.component.html',
   styleUrl: './ticket-card.component.css',
 })

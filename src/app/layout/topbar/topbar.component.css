@@ -190,3 +190,26 @@
 .logout-btn:hover .material-symbols-outlined {
   color: #dc2626;
 }
+
+/* Por defecto oculto en Desktop */
+.mobile-toggle-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 12px; /* Espacio separador con el título */
+    color: #1e293b; /* Color acorde a tu topbar */
+  }
+
+  .mobile-toggle-btn .material-symbols-outlined {
+    font-size: 1.5rem;
+  }
+}
