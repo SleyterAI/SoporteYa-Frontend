@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, computed, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { InitialsPipe } from '../../core/pipes/initials.pipe';
 import { SidebarMenuService } from '../services/sibear-menu.service';
@@ -32,11 +32,20 @@ export class SidebarComponent {
   });
 
   // Agrupación de menús basada en el diseño
-  gestionMenu = signal<MenuItem[]>([
+  private readonly allGestionMenu: MenuItem[] = [
     { id: 'tablero', label: 'Tablero', icon: 'view_kanban', route: 'ticket-board-page' },
     { id: 'todos', label: 'Todos los tickets', icon: 'inbox', route: '/all-ticket-page' },
     { id: 'mis-tickets', label: 'Mis tickets', icon: 'person', route: '/my-ticket-page' }
-  ]);
+  ];
+
+  gestionMenu = computed(() => {
+    const isAdmin = this.authCookieService.isAdmin();
+    if (isAdmin) {
+      return this.allGestionMenu;
+    } else {
+      return this.allGestionMenu.filter(item => item.id === 'mis-tickets');
+    }
+  });
 
   recursosMenu = signal<MenuItem[]>([
     { id: 'base', label: 'Base de conocimiento', icon: 'menu_book', route: '/knowledge-base' },

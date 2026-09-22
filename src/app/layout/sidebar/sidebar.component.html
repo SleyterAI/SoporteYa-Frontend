@@ -22,14 +22,14 @@
     <span class="material-symbols-outlined expand-icon">unfold_more</span>
   </div>
 
-  <!-- Navegación (Añadimos (click)="closeMobileMenu()" para que se oculte al seleccionar una opción) -->
   <nav class="nav-menu">
     <div class="nav-section">
       <span class="section-title">GESTIÓN</span>
       <ul>
         @for (item of gestionMenu(); track item.id) {
           <li>
-            <a [routerLink]="item.route" routerLinkActive="active" class="nav-item" (click)="closeMobileMenu()">
+            <a [routerLink]="item.route"
+              routerLinkActive="active" class="nav-item" (click)="closeMobileMenu()">
               <span class="material-symbols-outlined">{{ item.icon }}</span>
               {{ item.label }}
               @if (item.id === 'todos') {
@@ -46,7 +46,8 @@
       <ul>
         @for (item of recursosMenu(); track item.id) {
           <li>
-            <a [routerLink]="item.route" routerLinkActive="active" class="nav-item" (click)="closeMobileMenu()">
+            <a [routerLink]="item.route"
+              routerLinkActive="active" class="nav-item" (click)="closeMobileMenu()">
               <span class="material-symbols-outlined">{{ item.icon }}</span>
               {{ item.label }}
             </a>

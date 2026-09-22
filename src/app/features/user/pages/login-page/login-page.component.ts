@@ -38,7 +38,8 @@ export class LoginPageComponent {
     this.authCookieService.login(request).subscribe({
       next: () => {
         console.log('Inicio exitoso');
-        this.router.navigate(['ticket-board-page']);
+        if (this.authCookieService.isAdmin()) this.router.navigate(['ticket-board-page']);
+        else this.router.navigate(['ticket-form']);
       },
       error: (error) => {
         console.error('login-form: ', error);

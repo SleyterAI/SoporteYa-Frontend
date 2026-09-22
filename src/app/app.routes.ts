@@ -34,6 +34,7 @@ export const routes: Routes = [
       {
         path: 'ticket-board-page',
         component: TicketBoardPageComponent,
+        canActivate: [adminGuard]
       },
       {
         path: 'ticket/:id',
@@ -47,6 +48,7 @@ export const routes: Routes = [
       {
         path: 'all-ticket-page',
         component: AllTicketPageComponent,
+        canActivate: [adminGuard]
       },
       {
         path: 'my-ticket-page',
