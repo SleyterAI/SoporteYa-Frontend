@@ -15,19 +15,19 @@
     <!-- Fila de metricas -->
   <div class="metrics-row">
     <app-ticket-row
-      title="Estado"
-      value="cadena"
-      icon="pending">
+      title = "Tickets abiertos"
+      value = {{ticketsAbiertos().length}}
+      icon = "inbox">
     </app-ticket-row>
     <app-ticket-row
-      title="Estado"
-      value="cadena"
-      icon="pending">
+      title = "Tiempo medio de respuesta"
+      value = "1h 30 min"
+      icon = "schedule">
     </app-ticket-row>
     <app-ticket-row
-      title="Estado"
-      value="cadena"
-      icon="pending">
+      title = "Resueltos esta semana"
+      value = {{ticketsCerrados().length}}
+      icon = "star">
     </app-ticket-row>
 
   </div>
@@ -112,7 +112,6 @@
           }
         </div>
       </div>
-
     </div>
   }
 </div>

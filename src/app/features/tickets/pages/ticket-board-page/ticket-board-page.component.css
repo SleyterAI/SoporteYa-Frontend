@@ -5,8 +5,8 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0;
-  height: calc(100vh - 115px); /* Fija la altura total visible de la vista */
-  overflow: hidden;          /* 👈 Elimina por completo el scroll vertical de la página general */
+  height: calc(100vh - 113px);
+  overflow: hidden;
 }
 
 /* --- ESTILOS DE LA CABECERA --- */
@@ -15,7 +15,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 0;
-  flex-shrink: 0;            /* Evita que la cabecera se comprima */
+  flex-shrink: 0;
 }
 
 .header-text h2 {
@@ -33,7 +33,7 @@
 
 /* --- ESTILOS DEL BOTÓN PRINCIPAL --- */
 .btn-primary {
-  background-color: #3b82f6; /* Color azul del PDF */
+  background-color: #3b82f6;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -49,11 +49,11 @@
 }
 
 .btn-primary:hover {
-  background-color: #2563eb; /* Azul un poco más oscuro al pasar el mouse */
+  background-color: #2563eb;
 }
 
 .btn-primary:active {
-  transform: scale(0.98); /* Pequeño efecto de click */
+  transform: scale(0.98);
 }
 
 .btn-primary .material-symbols-outlined {
@@ -85,10 +85,10 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  align-items: stretch;     /* Estira las columnas para que ocupen todo el alto */
+  align-items: stretch;
   margin-top: 0;
-  flex: 1;                  /* Ocupa el espacio vertical restante */
-  min-height: 0;            /* Crucial para que el scroll interno funcione en contenedores flexibles */
+  flex: 1;
+  min-height: 0;
   overflow-x: auto;
   padding-bottom: 12px;
 }
@@ -99,8 +99,8 @@
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  height: 100%;             /* Ocupa el 100% del alto del grid padre */
-  overflow: hidden;         /* Contiene los elementos */
+  height: 100%;
+  overflow: hidden;
 }
 
 .column-header {
@@ -112,7 +112,7 @@
   background-color: #ffffff;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  flex-shrink: 0;           /* Evita que el encabezado se distorsione */
+  flex-shrink: 0;
 }
 
 .column-title-wrapper {
@@ -143,7 +143,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow-y: auto;         /* 👈 Aquí se genera la barra de desplazamiento exclusiva */
+  overflow-y: auto;
   flex: 1;
 }
 
@@ -154,7 +154,6 @@
   padding: 24px 0;
 }
 
-/* Indicadores de color para los estados */
 .status-dot {
   width: 8px;
   height: 8px;
