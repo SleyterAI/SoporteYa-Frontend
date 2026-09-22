@@ -5,6 +5,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../features/user/services/auth.service';
 import { InitialsPipe } from '../../core/pipes/initials.pipe';
 import { SidebarMenuService } from '../services/sibear-menu.service';
+import { AuthCookieService } from '../../features/user/services/auth-cookie.service';
 
 @Component({
   selector: 'app-topbar',
@@ -14,14 +15,14 @@ import { SidebarMenuService } from '../services/sibear-menu.service';
 })
 export class TopbarComponent {
   private router = inject(Router);
-  private readonly authService = inject(AuthService);
+  private readonly authCookieService = inject(AuthCookieService);
   private readonly sidebarState = inject(SidebarMenuService);
 
   toggleMenu() {
     this.sidebarState.toggleMobileMenu();
   }
 
-  email = this.authService.getEmail();
+  email = this.authCookieService.getEmail();
 
   isUserMenuOpen = signal<boolean>(false);
   breadcrumbs = signal<string[]>(['Soporte', 'Tablero']);
@@ -53,7 +54,7 @@ export class TopbarComponent {
   }
 
   logout() {
-    this.authService.logout();
+    this.authCookieService.logout();
     this.router.navigate(['/login']);
   }
 

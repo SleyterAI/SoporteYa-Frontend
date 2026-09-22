@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { AuthCookieService } from '../../services/auth-cookie.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +15,7 @@ export class LoginPageComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private readonly authService = inject(AuthService);
-
+  private readonly authCookieService = inject(AuthCookieService);
   // Estado reactivo para ver/ocultar contraseña
   showPassword = signal<boolean>(false);
 
@@ -34,7 +35,7 @@ export class LoginPageComponent {
     }
     const request = this.loginForm.getRawValue();
 
-    this.authService.login(request).subscribe({
+    this.authCookieService.login(request).subscribe({
       next: () => {
         console.log('Inicio exitoso');
         this.router.navigate(['ticket-board-page']);

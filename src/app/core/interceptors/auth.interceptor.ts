@@ -1,15 +1,14 @@
 import { HttpInterceptorFn }from '@angular/common/http';
 import { inject }from '@angular/core';
-
-import { AuthService } from '../../features/user/services/auth.service';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthCookieService } from '../../features/user/services/auth-cookie.service';
 
 export const authInterceptor: HttpInterceptorFn = (request, next)=> {
 
-  const authService = inject(AuthService);
+  const authCookieService = inject(AuthCookieService);
   const router = inject(Router);
-  const token = authService.getToken();
+  const token = authCookieService.getToken();
 
   const rutasPublicas = ['/auth'];
 
@@ -29,7 +28,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next)=> {
   return next(authRequest).pipe(
     catchError(error=> {
       if (error.status=== 404 || error.status === 1003) {
-        authService.logout();
+        authCookieService.logout();
         router.navigate(['/login']);
       }
 

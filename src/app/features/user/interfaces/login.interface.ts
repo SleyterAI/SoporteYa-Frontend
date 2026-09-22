@@ -8,3 +8,7 @@ export interface LoginResponseDto{
   email: string;
   role: string;
 }
+
+export interface LoginResponse{
+  token: string;
+}

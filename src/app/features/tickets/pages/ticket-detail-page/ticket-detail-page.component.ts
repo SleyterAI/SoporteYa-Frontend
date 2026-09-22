@@ -82,4 +82,42 @@ export class TicketDetailPageComponent {
     });
   }
 
+  // Determina el estado visual de cada paso según tu regla exacta
+  getStepStatus(stepName: string, currentEstado?: string): 'completed' | 'active' | 'pending' {
+    const states = ['ABIERTO', 'EN_PROGRESO', 'RESUELTO', 'CERRADO'];
+    const currentIndex = states.indexOf(currentEstado || 'ABIERTO');
+    const stepIndex = states.indexOf(stepName);
+
+    // Si el ticket está CERRADO, absolutamente todos los pasos terminan en verde
+    if (currentEstado === 'CERRADO') {
+      return 'completed';
+    }
+
+    // Los pasos pasados y el actual se quedan en verde (completed)
+    if (stepIndex <= currentIndex) {
+      return 'completed';
+    }
+
+    // El siguiente paso inmediato se pone en azul (active)
+    if (stepIndex === currentIndex + 1) {
+      return 'active';
+    }
+
+    // Los demás se quedan pendientes (gris)
+    return 'pending';
+  }
+
+  // Determina si la línea conectora debe pintarse de verde
+  isStepPassed(stepName: string, currentEstado?: string): boolean {
+    const states = ['ABIERTO', 'EN_PROGRESO', 'RESUELTO', 'CERRADO'];
+    const currentIndex = states.indexOf(currentEstado || 'ABIERTO');
+    const stepIndex = states.indexOf(stepName);
+
+    // Si el ticket está cerrado, todas las líneas son verdes
+    if (currentEstado === 'CERRADO') {
+      return true;
+    }
+
+    return stepIndex < currentIndex;
+  }
 }

@@ -1,8 +1,8 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../features/user/services/auth.service';
 import { InitialsPipe } from '../../core/pipes/initials.pipe';
 import { SidebarMenuService } from '../services/sibear-menu.service';
+import { AuthCookieService } from '../../features/user/services/auth-cookie.service';
 
 interface MenuItem {
   id: string;
@@ -18,7 +18,7 @@ interface MenuItem {
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
-  private readonly authService = inject(AuthService);
+  private readonly authCookieService = inject(AuthCookieService);
   private readonly sidebarState = inject(SidebarMenuService);
   private router = inject(Router);
   isUserMenuOpen = signal<boolean>(false);
@@ -26,9 +26,9 @@ export class SidebarComponent {
   isMobileMenuOpen = this.sidebarState.isMobileMenuOpen;
 
   user = signal({
-    name: this.authService.getEmail(),
-    role: this.authService.getRole(),
-    avatarInitials: this.authService.getEmail(),
+    name: this.authCookieService.getEmail(),
+    role: this.authCookieService.userRole(),
+    avatarInitials: this.authCookieService.getEmail(),
   });
 
   // Agrupación de menús basada en el diseño
@@ -48,7 +48,7 @@ export class SidebarComponent {
   }
 
   logout() {
-    this.authService.logout();
+    this.authCookieService.logout();
     this.router.navigate(['/login']);
   }
 

@@ -3,7 +3,7 @@ import { Component, inject, input } from '@angular/core';
 import { TicketResponse } from '../../models/ticket.interface';
 import { TimeAgoPipe } from '../../../../core/pipes/time-ago.pipe';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../user/services/auth.service';
+import { AuthCookieService } from '../../../user/services/auth-cookie.service';
 
 @Component({
   selector: 'app-ticket-card',
@@ -13,7 +13,7 @@ import { AuthService } from '../../../user/services/auth.service';
 })
 export class TicketCardComponent {
   ticket = input.required<TicketResponse>();
-  private readonly authService = inject(AuthService);
+  private readonly authCookieService = inject(AuthCookieService);
   private readonly router = inject(Router);
 
   getInitials(): string {
@@ -26,9 +26,9 @@ export class TicketCardComponent {
   }
 
   onCardClick() {
-    const role = this.authService.getRole();
+    const role = this.authCookieService.isAdmin();
 
-    if (role === 'ROLE_ADMIN') {
+    if (role) {
       this.router.navigate(['/ticket', this.ticket().id]);
     } else {
       console.warn('Not access');
