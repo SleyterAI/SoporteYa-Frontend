@@ -12,7 +12,7 @@
     </button>
   </div>
 
-  <!-- Fila de metricas -->
+    <!-- Fila de metricas -->
   <div class="metrics-row">
     <app-ticket-row
       title="Estado"
@@ -38,11 +38,81 @@
     <div class="error-state">Error: {{ ticketResource.error() | json }}</div>
   } @else {
 
-    <div class="tickets-grid">
-      @for (ticket of ticketResource.value(); track ticket.id) {
-        <app-ticket-card [ticket]="ticket" />
-      }
+    <!-- Tablero de 4 Columnas -->
+    <div class="kanban-board">
+
+      <!-- Columna 1: ABIERTO -->
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="column-title-wrapper">
+            <span class="status-dot abierto"></span>
+            <span class="column-title">Abiertos</span>
+          </div>
+          <span class="column-counter">{{ ticketsAbiertos().length }}</span>
+        </div>
+        <div class="column-cards">
+          @for (ticket of ticketsAbiertos(); track ticket.id) {
+            <app-ticket-card [ticket]="ticket" />
+          } @empty {
+            <div class="empty-column">No hay tickets</div>
+          }
+        </div>
+      </div>
+
+      <!-- Columna 2: EN_PROGRESO -->
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="column-title-wrapper">
+            <span class="status-dot en_progreso"></span>
+            <span class="column-title">En progreso</span>
+          </div>
+          <span class="column-counter">{{ ticketsEnProgreso().length }}</span>
+        </div>
+        <div class="column-cards">
+          @for (ticket of ticketsEnProgreso(); track ticket.id) {
+            <app-ticket-card [ticket]="ticket" />
+          } @empty {
+            <div class="empty-column">No hay tickets</div>
+          }
+        </div>
+      </div>
+
+      <!-- Columna 3: RESUELTO -->
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="column-title-wrapper">
+            <span class="status-dot resuelto"></span>
+            <span class="column-title">Resueltos</span>
+          </div>
+          <span class="column-counter">{{ ticketsResueltos().length }}</span>
+        </div>
+        <div class="column-cards">
+          @for (ticket of ticketsResueltos(); track ticket.id) {
+            <app-ticket-card [ticket]="ticket" />
+          } @empty {
+            <div class="empty-column">No hay tickets</div>
+          }
+        </div>
+      </div>
+
+      <!-- Columna 4: CERRADO -->
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="column-title-wrapper">
+            <span class="status-dot cerrado"></span>
+            <span class="column-title">Cerrados</span>
+          </div>
+          <span class="column-counter">{{ ticketsCerrados().length }}</span>
+        </div>
+        <div class="column-cards">
+          @for (ticket of ticketsCerrados(); track ticket.id) {
+            <app-ticket-card [ticket]="ticket" />
+          } @empty {
+            <div class="empty-column">No hay tickets</div>
+          }
+        </div>
+      </div>
+
     </div>
   }
 </div>
-

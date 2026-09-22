@@ -5,6 +5,8 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0;
+  height: calc(100vh - 115px); /* Fija la altura total visible de la vista */
+  overflow: hidden;          /* 👈 Elimina por completo el scroll vertical de la página general */
 }
 
 /* --- ESTILOS DE LA CABECERA --- */
@@ -12,7 +14,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 0;
+  flex-shrink: 0;            /* Evita que la cabecera se comprima */
 }
 
 .header-text h2 {
@@ -77,3 +80,87 @@
   color: #64748b;
   font-size: 0.875rem;
 }
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: stretch;     /* Estira las columnas para que ocupen todo el alto */
+  margin-top: 0;
+  flex: 1;                  /* Ocupa el espacio vertical restante */
+  min-height: 0;            /* Crucial para que el scroll interno funcione en contenedores flexibles */
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+
+.kanban-column {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;             /* Ocupa el 100% del alto del grid padre */
+  overflow: hidden;         /* Contiene los elementos */
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  flex-shrink: 0;           /* Evita que el encabezado se distorsione */
+}
+
+.column-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.column-counter {
+  background-color: #f1f5f9;
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.column-cards {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;         /* 👈 Aquí se genera la barra de desplazamiento exclusiva */
+  flex: 1;
+}
+
+.empty-column {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  padding: 24px 0;
+}
+
+/* Indicadores de color para los estados */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.status-dot.abierto { background-color: #3b82f6; }
+.status-dot.en_progreso { background-color: #f59e0b; }
+.status-dot.resuelto { background-color: #10b981; }
+.status-dot.cerrado { background-color: #64748b; }
