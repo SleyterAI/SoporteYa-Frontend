@@ -1,6 +1,67 @@
-# SoporteYaFrontend
+
+# Mini Mesa de Ayuda Interna : SoporteYaFrontend
+_____________________________________________
+Proyecto FullStack, que permite gestionar tickets
+creación, obtención y actualización, validación de 
+workflow de estado de cada ticket. 
+Cuenta con validación de roles para usuario y admin
+para visualizar características únicas de admin.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.4.
+
+# Tecnologías usadas Frontend:
+- Angular 20
+- Typescript
+- Interceptors 
+- Guards
+- Cookies
+
+# Herramientas:
+- VSC
+- Git y GitHub
+
+# Funcionalidades:
+# Usuario:
+- Login
+- Creación de tickets
+- Visualización de su propios tickets
+- Acceso a base de conocimiento
+- Acceso a configuración
+- Filtro por estado de tickets
+
+# Admin:
+- Login
+- Kanban de todos los tickets
+- Lista general de tickets
+- Creación de tickets
+- Visualización de su propios tickets
+- Acceso a base de conocimiento
+- Acceso a configuración
+- Filtro por estado de tickets y prioridad
+
+# Arquitectura:
+- Components
+- core
+	- interceptos
+	- guards
+	- pipes
+- environments
+- features
+	- knowledge-base
+	- settings
+	- tickets
+	- user
+- layout
+	- full-page
+	- sidebar
+	- topbar
+	- services
+- shared
+
+# Seguridad:
+- Uso de cookie para validar la autenticación y rol
+- Uso de guards para validar el rol
+
 
 ## Development server
 
